@@ -1,2 +1,1 @@
-# Manna
- Manna (python)
+# Manna (python)
