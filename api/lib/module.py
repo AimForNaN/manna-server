@@ -27,7 +27,7 @@ class Module():
     def getKey(self):
         return self._key;
 
-    def renderText(self, key):
+    def renderText(self, key: Sword.SWKey):
         mod = self.swmod;
         mod.setKey(key);
         mod.renderText();

@@ -31,7 +31,7 @@ class Bible(Module):
         return ret;
 
     def getText(self):
-        ret = {};
+        ret = [];
         mod = self.swmod;
         key = Sword.VerseKey(mod.getKey());
         lk = key.parseVerseList(self.key, None, True);
@@ -40,9 +40,17 @@ class Bible(Module):
             el = Sword.VerseKey(lk.getElement(i));
             upper = el.getUpperBound();
             while not upper.equals(el):
-                ret[el.getText()] = self.renderText(el);
+                ret.append(self.renderText(el));
                 el.increment();
 
-            ret[el.getText()] = self.renderText(el);
+            ret.append(self.renderText(el));
         
         return ret;
+
+    def renderText(self, key: Sword.VerseKey):
+        return {
+            'Book': key.getBookName(),
+            'Chapter': key.getChapter(),
+            'Text': super().renderText(key),
+            'Verse': key.getVerse(),
+        };
