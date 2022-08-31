@@ -8,7 +8,8 @@ from fastapi.responses import HTMLResponse;
 # HACK: Apparently, makes relative imports work!? Useful for testing, at least!
 __package__ = __name__;
 
-from api import modules;
+from api import modules, repositories;
+from api.lib.factory import Factory;
 
 app = FastAPI();
 
@@ -21,12 +22,18 @@ app.add_middleware(
 );
 
 app.include_router(modules.router);
+app.include_router(repositories.router);
 
 @app.get('/', response_class=HTMLResponse)
 async def get_Index(response: Response):
     response.status_code = 422;
 
 if __name__ == '__main__':
+    ini = Factory.getIni();
+    ini = ini['hypercorn'];
     config = Config();
-    config.bind = ['localhost:4815'];
+    config.from_mapping(ini);
+    # from_mapping doesn't handle properties!
+    config.bind = ini['bind'];
+
     asyncio.run(serve(app, config));

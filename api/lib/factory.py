@@ -1,18 +1,25 @@
-import configparser;
+import tomli;
 import Sword;
 from .bible import Bible;
 from .module import Module;
 
 class Factory():
     @staticmethod
+    def getIni():
+        try:
+            with open('manna.ini') as conf:
+                return tomli.load(conf);
+        except:
+            return {};
+
+    @staticmethod
     def getRepository(repo: str):
         mgr = None;
         if repo.lower() == 'default':
             mgr = Sword.SWMgr();
         else:
-            conf = configparser.ConfigParser();
-            conf.read('manna.ini');
-            paths = conf.get('Repositories', []);
+            ini = Factory.getIni();
+            paths = ini.get('Repositories', []);
             if repo in paths:
                 mgr = Sword.SWMgr(paths[repo]);
 

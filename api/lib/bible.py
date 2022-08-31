@@ -13,6 +13,18 @@ class Bible(Module):
     def getBooks(self):
         mod = self.swmod;
         ret = [];
+
         key = Sword.VerseKey(mod.getKey());
-        v = mod.getConfigEntry('Versification');
+        key.setVersificationSystem(mod.getConfigEntry('Versification'));
+        for x in [1,2]:
+            key.setTestament(x);
+            for y in range(1, key.getBookMax()):
+                key.setBook(y);
+                ret.append({
+                    'Book': key.getBookName(),
+                    'Chapters': key.getChapterMax(),
+                    'Index': ord(key.getBook()),
+                    'Testament': ord(key.getTestament()),
+                });
+
         return ret;
