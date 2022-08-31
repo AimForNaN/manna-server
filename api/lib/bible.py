@@ -3,12 +3,12 @@ from .module import Module;
 
 class Bible(Module):
     def __iter__(self):
-        ret = super().__iter__();
+        ret = dict(super().__iter__());
+        ret['Books'] = self.getBooks();
+        ret['Key'] = self.getKey();
 
-        for x,y in ret:
-            yield(x, y);
-        
-        yield('Books', self.getBooks());
+        for x in sorted(ret.keys()):
+            yield(x, ret[x]);
 
     def getBooks(self):
         mod = self.swmod;
@@ -28,3 +28,8 @@ class Bible(Module):
                 });
 
         return ret;
+
+    def getKey(self):
+        mod = self.swmod;
+        key = Sword.VerseKey(mod.getKey());
+        return key.getText();
