@@ -1,7 +1,7 @@
 import Sword;
 from fastapi import APIRouter, Response;
-from lib.factory import Factory;
-from lib.module import Module;
+from .lib.factory import Factory;
+from .lib.module import Module;
 
 router = APIRouter();
 
