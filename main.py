@@ -5,6 +5,9 @@ from fastapi import FastAPI, Response;
 from fastapi.middleware.cors import CORSMiddleware;
 from fastapi.responses import HTMLResponse;
 
+# HACK: Apparently, makes relative imports work!? Useful for testing, at least!
+__package__ = __name__;
+
 from api import modules;
 
 app = FastAPI();
