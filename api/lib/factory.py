@@ -1,5 +1,6 @@
 import configparser;
 import Sword;
+from .bible import Bible;
 from .module import Module;
 
 class Factory():
@@ -19,4 +20,11 @@ class Factory():
 
     @staticmethod
     def fromModule(mod: Sword.SWModule):
+        if mod.getType() == 'Biblical Texts':
+            return Bible(mod);
+        # if mod.getType() == 'Commentaries':
+        #     return Commentary(mod);
+        # if mod.getType() == 'Lexicons / Dictionaries':
+        #     return Lexicon(mod);
+
         return Module(mod);
