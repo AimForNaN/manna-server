@@ -1,3 +1,4 @@
+import re
 import Sword;
 from .module import Module;
 
@@ -5,7 +6,7 @@ class Bible(Module):
     def __iter__(self):
         ret = dict(super().__iter__());
         ret['Books'] = self.getBooks();
-        ret['Key'] = self.getKey();
+        ret['Text'] = self.getText();
 
         for x in sorted(ret.keys()):
             yield(x, ret[x]);
@@ -15,7 +16,7 @@ class Bible(Module):
         ret = [];
 
         key = Sword.VerseKey(mod.getKey());
-        key.setVersificationSystem(mod.getConfigEntry('Versification'));
+        # key.setVersificationSystem(mod.getConfigEntry('Versification'));
         for x in [1,2]:
             key.setTestament(x);
             for y in range(1, key.getBookMax()):
@@ -29,7 +30,19 @@ class Bible(Module):
 
         return ret;
 
-    def getKey(self):
+    def getText(self):
+        ret = {};
         mod = self.swmod;
         key = Sword.VerseKey(mod.getKey());
-        return key.getText();
+        lk = key.parseVerseList(self.key, None, True);
+
+        for i in range(lk.getCount()):
+            el = Sword.VerseKey(lk.getElement(i));
+            upper = el.getUpperBound();
+            while not upper.equals(el):
+                ret[el.getText()] = self.renderText(el);
+                el.increment();
+
+            ret[el.getText()] = self.renderText(el);
+        
+        return ret;

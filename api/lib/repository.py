@@ -7,8 +7,8 @@ class Repository():
 
     def __iter__(self):
         mgr = self.swmgr;
-        yield('modules', [dict(Module(mod)) for mod in self.getModules()]);
-        yield('path', mgr.configPath);
+        yield('Modules', [dict(Module(mod)) for mod in self.getModules()]);
+        yield('Path', mgr.configPath);
 
     def getModules(self):
         mgr = self.swmgr;

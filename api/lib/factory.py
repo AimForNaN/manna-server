@@ -8,7 +8,9 @@ class Factory():
     def getIni():
         try:
             with open('manna.ini') as conf:
-                return tomli.load(conf);
+                ret = tomli.load(conf);
+                conf.close();
+                return ret;
         except:
             return {};
 

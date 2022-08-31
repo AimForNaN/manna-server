@@ -12,6 +12,10 @@ async def get_Module(response: Response, repo: str, mod: str, key: str = None):
     
     if mod is not None:
         mod = Factory.fromModule(mod);
+
+        if key is not None:
+            mod.key = key;
+            
         return dict(mod);
     
     response.status_code = 404;
