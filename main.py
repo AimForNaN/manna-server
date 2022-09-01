@@ -34,6 +34,6 @@ if __name__ == '__main__':
     config = Config();
     config.from_mapping(ini);
     # from_mapping doesn't handle properties!
-    config.bind = ini['bind'];
+    config.bind = ini.get('bind', ["localhost:4815"]);
 
     asyncio.run(serve(app, config));
