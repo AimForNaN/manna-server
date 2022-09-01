@@ -1,7 +1,7 @@
 import Sword;
 
 class Module():
-    _key = '';
+    _key = None;
 
     def __init__(self, mod: Sword.SWModule):
         self.swmod = mod;
@@ -35,12 +35,16 @@ class Module():
         mod = self.swmod;
 
         if key is None:
-            mod.setKey(Sword.SWKey(self.key));
+            if self.key is not None:
+                mod.setKey(Sword.SWKey(self.key));
         else:
             mod.setKey(key);
-            
-        mod.renderText();
-        return mod.getRawEntry();
+
+        if mod.getKey().getText() is not None:
+            mod.renderText();
+            return mod.getRawEntry();
+
+        return None;
 
     def setKey(self, v: str):
         self._key = v;
