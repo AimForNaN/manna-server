@@ -18,6 +18,7 @@ class Module():
             'Language': mod.getConfigEntry('Lang'),
             'Module': mod.getName(),
             'SourceType': mod.getConfigEntry('SourceType'),
+            'Text': self.getText(),
             'Type': mod.getType(),
             'Version': mod.getConfigEntry('Version'),
         };
@@ -27,9 +28,17 @@ class Module():
     def getKey(self):
         return self._key;
 
-    def renderText(self, key: Sword.SWKey):
+    def getText(self):
+        return self.renderText();
+
+    def renderText(self, key: Sword.SWKey = None):
         mod = self.swmod;
-        mod.setKey(key);
+
+        if key is None:
+            mod.setKey(Sword.SWKey(self.key));
+        else:
+            mod.setKey(key);
+            
         mod.renderText();
         return mod.getRawEntry();
 
