@@ -1,26 +1,25 @@
-import tomli;
 import Sword;
+from typing import Optional
+
+from .config import MannaConfig;
 from .bible import Bible;
 from .module import Module;
 
 class Factory():
     @staticmethod
-    def getIni():
-        try:
-            with open('manna.ini') as conf:
-                ret = tomli.load(conf);
-                conf.close();
-                return ret;
-        except:
-            return {};
+    def getInstall(repo: Sword.SWMgr) -> Sword.InstallMgr:
+        install = Sword.InstallMgr(repo.prefixPath);
+        # People should already know what they're doing!
+        install.setUserDisclaimerConfirmed(True);
+        return install;
 
     @staticmethod
-    def getRepository(repo: str):
+    def getRepository(repo: str) -> Optional[Sword.SWMgr]:
         mgr = None;
         if repo.lower() == 'default':
             mgr = Sword.SWMgr();
         else:
-            ini = Factory.getIni();
+            ini = MannaConfig();
             paths = ini.get('Repositories', []);
             if repo in paths:
                 mgr = Sword.SWMgr(paths[repo]);
