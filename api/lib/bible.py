@@ -1,17 +1,16 @@
-import re
 import Sword;
 from .module import Module;
 
 class Bible(Module):
     def __iter__(self):
         ret = dict(super().__iter__());
-        ret['Books'] = self.getBooks();
+        ret['Structure'] = self.getStructure();
         ret['Text'] = self.getText();
 
         for x in sorted(ret.keys()):
             yield(x, ret[x]);
 
-    def getBooks(self):
+    def getStructure(self):
         mod = self.swmod;
         ret = [];
 
