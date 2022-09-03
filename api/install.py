@@ -45,7 +45,7 @@ async def get_Install(response: Response, repo: str):
                 mgr = Repository(source.getMgr());
                 ret.append({
                     'Location': str(source.source),
-                    'Modules': mgr.getModules(),
+                    'Modules': [dict(mod) for mod in mgr.getModules()],
                     'Source': str(caption),
                     'Type': str(source.type),
                 });
