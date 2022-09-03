@@ -65,6 +65,7 @@ async def post_Install(response: Response, repo: str, mod: InstallModuleModel):
             result = install.installModule(repo, None, mod.Name, source);
             if result: # Non-zero result is an error!
                 response.status_code = 500;
+                return;
             else:
                 return;
         except:
