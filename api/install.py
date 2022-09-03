@@ -1,8 +1,9 @@
 import Sword;
 from fastapi import APIRouter, Response;
-from pydantic import BaseModel;
+from pydantic import BaseModel
 
 from .lib.factory import Factory;
+from .lib.installsource import InstallRemoteSource;
 from .lib.repository import Repository;
 
 router = APIRouter();
@@ -22,7 +23,7 @@ def findInstallSource(sources, source: str):
     raise StopIteration;
 
 @router.get('/{repo}/install')
-async def get_Install(response: Response, repo: str):
+async def get_Install(response: Response, repo: str, src: str = None):
     """Retrieve install sources."""
     ret = [];
     repo = Factory.getRepository(repo);
@@ -41,14 +42,13 @@ async def get_Install(response: Response, repo: str):
         if not len(sources):
             response.status_code = 204;
         else:
-            for caption,source in sources:
-                mgr = Repository(source.getMgr());
-                ret.append({
-                    'Location': str(source.source),
-                    'Modules': [dict(mod) for mod in mgr.getModules()],
-                    'Source': str(caption),
-                    'Type': str(source.type),
-                });
+            if src is not None:
+                source = findInstallSource(sources, src);
+                ret = dict(InstallRemoteSource(source));
+            else:
+                for caption,source in sources:
+                    source = InstallRemoteSource(source);
+                    ret.append(dict(source));
 
     return ret;
 
