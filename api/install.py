@@ -14,6 +14,13 @@ class InstallModuleModel(BaseModel):
 class InstallSourceModel(BaseModel):
     Source: str;
 
+def findInstallSource(sources, source: str):
+    for y,x in sources:
+        if str(y) == source:
+            return x;
+
+    raise StopIteration;
+
 @router.get('/{repo}/install')
 async def get_Install(response: Response, repo: str):
     """Retrieve install sources."""
@@ -54,7 +61,7 @@ async def post_Install(response: Response, repo: str, mod: InstallModuleModel):
         sources = install.sources.items();
 
         try:
-            source = sources[mod.Source];
+            source = findInstallSource(sources, mod.Source);
             result = install.installModule(repo, None, mod.Name, source);
             if result: # Non-zero result is an error!
                 response.status_code = 500;
@@ -66,7 +73,7 @@ async def post_Install(response: Response, repo: str, mod: InstallModuleModel):
     response.status_code = 422;
 
 @router.patch('/{repo}/install')
-async def patch_Install(response: Response, repo: str, source: InstallModuleModel):
+async def patch_Install(response: Response, repo: str, source: InstallSourceModel):
     """Refresh remote source cache."""
     repo = Factory.getRepository(repo);
     if repo is not None:
@@ -74,13 +81,13 @@ async def patch_Install(response: Response, repo: str, source: InstallModuleMode
         sources = install.sources.items();
 
         try:
-            source = sources[source.Source];
+            source = findInstallSource(sources, source.Source);
             result = install.refreshRemoteSource(source);
             if result: # Non-zero result is an error!
                 response.status_code = 500;
             else:
                 return;
-        except:
+        except Exception as e:
             pass;
 
     response.status_code = 422;
