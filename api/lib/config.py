@@ -10,7 +10,7 @@ class MannaConfig(ObjectProxy):
         self.read();
 
     def read(self):
-        with open(self.Path, 'r') as conf:
+        with open(self.Path, 'rb') as conf:
             ini = tomli.load(conf);
             conf.close();
             self.__wrapped__ = ini;
