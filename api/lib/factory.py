@@ -11,6 +11,7 @@ class Factory():
         install = Sword.InstallMgr(repo.prefixPath);
         # People should already know what they're doing!
         install.setUserDisclaimerConfirmed(True);
+        install.setTimeoutMillis(60000);
         return install;
 
     @staticmethod
