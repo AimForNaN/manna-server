@@ -11,4 +11,23 @@ class GenBook(Module):
             yield(x, ret[x]);
 
     def getStructure(self):
-        return [];
+        mod = self.swmod;
+        key = mod.getKey();
+        key = Sword.TreeKeyIdx_castTo(key.clone());
+        return self.pullStructure(key);
+
+    def pullStructure(self, tk: Sword.TreeKey):
+        ret = [];
+        if tk.firstChild():
+            while True:
+                ret.append(tk.getText());
+
+                if tk.hasChildren():
+                    ret = ret + self.pullStructure(tk);
+                
+                if not tk.nextSibling():
+                    break;
+            
+            tk.parent();
+        
+        return ret;

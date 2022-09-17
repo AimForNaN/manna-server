@@ -1,8 +1,9 @@
 import Sword;
-from typing import Optional
+from typing import Optional;
 
 from .config import MannaConfig;
 from .bible import Bible;
+from .genbook import GenBook;
 from .module import Module;
 
 class Factory():
@@ -31,6 +32,8 @@ class Factory():
     def fromModule(mod: Sword.SWModule):
         if mod.getType() == 'Biblical Texts':
             return Bible(mod);
+        if mod.getType() == 'Generic Books':
+            return GenBook(mod);
         # if mod.getType() == 'Commentaries':
         #     return Commentary(mod);
         # if mod.getType() == 'Lexicons / Dictionaries':

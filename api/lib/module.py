@@ -5,7 +5,7 @@ class Module():
 
     def __init__(self, mod: Sword.SWModule):
         self.swmod = mod;
-        self.key = mod.getKey().getText();
+        self._key = mod.getKey().getText();
 
     def __iter__(self):
         mod = self.swmod;
@@ -14,7 +14,7 @@ class Module():
             'Description': mod.getDescription(),
             'Encoding': mod.getConfigEntry('Encoding'),
             'Feature': mod.getConfigEntry('Feature'),
-            'Key': self.key,
+            'Key': self._key,
             'Language': mod.getConfigEntry('Lang'),
             'Module': mod.getName(),
             'SourceType': mod.getConfigEntry('SourceType'),
@@ -35,8 +35,8 @@ class Module():
         mod = self.swmod;
 
         if key is None:
-            if self.key is not None:
-                mod.setKey(Sword.SWKey(self.key));
+            if self._key is not None:
+                mod.setKey(Sword.SWKey(self._key));
         else:
             mod.setKey(key);
 
