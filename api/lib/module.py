@@ -14,11 +14,9 @@ class Module():
             'Description': mod.getDescription(),
             'Encoding': mod.getConfigEntry('Encoding'),
             'Feature': mod.getConfigEntry('Feature'),
-            'Key': self._key,
             'Language': mod.getConfigEntry('Lang'),
             'Module': mod.getName(),
             'SourceType': mod.getConfigEntry('SourceType'),
-            'Text': self.getText(),
             'Type': mod.getType(),
             'Version': mod.getConfigEntry('Version'),
         };

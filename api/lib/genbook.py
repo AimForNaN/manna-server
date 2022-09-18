@@ -10,13 +10,6 @@ class GenBook(Module):
         if key.firstChild():
             self.setKey(key.getText());
 
-    def __iter__(self):
-        ret = dict(super().__iter__());
-        ret['Text'] = self.getText();
-
-        for x in sorted(ret.keys()):
-            yield(x, ret[x]);
-
     def getStructure(self):
         mod = self.swmod;
         key = mod.getKey();
