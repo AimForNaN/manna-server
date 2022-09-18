@@ -10,6 +10,10 @@ class Repository():
         yield('Modules', [dict(mod) for mod in self.getModules()]);
         yield('Path', mgr.prefixPath);
 
+    def getModule(self, mod):
+        modules = self.getModulesMapped();
+        return modules[mod];
+
     def getModules(self):
         mgr = self.swmgr;
         modules = [];
@@ -18,3 +22,11 @@ class Repository():
             modules.append(mod);
 
         return modules;
+
+    def getModulesMapped(self):
+        modules = self.getModules();
+        ret = {};
+        for mod in modules:
+            ret[mod.getName()] = mod;
+
+        return ret;

@@ -30,7 +30,10 @@ class Module():
         return [];
 
     def getText(self):
-        return self.renderText();
+        return [self.renderText()];
+
+    def getType(self):
+        return self.swmod.getType();
 
     def renderText(self, key: Sword.SWKey = None):
         mod = self.swmod;
