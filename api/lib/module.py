@@ -28,6 +28,9 @@ class Module():
     def getKey(self):
         return self._key;
 
+    def getStructure(self):
+        return [];
+
     def getText(self):
         return self.renderText();
 
