@@ -4,7 +4,6 @@ from .module import Module;
 class Bible(Module):
     def __iter__(self):
         ret = dict(super().__iter__());
-        ret['Structure'] = self.getStructure();
         ret['Text'] = self.getText();
 
         for x in sorted(ret.keys()):
