@@ -2,6 +2,7 @@ import Sword;
 
 class Module():
     _key = None;
+    _status = None;
 
     def __init__(self, mod: Sword.SWModule):
         self.swmod = mod;
@@ -16,7 +17,9 @@ class Module():
             'Feature': mod.getConfigEntry('Feature'),
             'Language': mod.getConfigEntry('Lang'),
             'Module': mod.getName(),
+            'SearchFramework': mod.hasSearchFramework(),
             'SourceType': mod.getConfigEntry('SourceType'),
+            'Status': self.getStatus(),
             'Type': mod.getType(),
             'Version': mod.getConfigEntry('Version'),
         };
@@ -25,6 +28,9 @@ class Module():
 
     def getKey(self):
         return self._key;
+
+    def getName(self):
+        return self.swmod.getName();
 
     def getStructure(self):
         return [];
@@ -53,4 +59,11 @@ class Module():
     def setKey(self, v: str):
         self._key = v;
 
+    def getStatus(self):
+        return self._status;
+
+    def setStatus(self, status):
+        self._status = status;
+
     key = property(getKey, setKey);
+    Status = property(getStatus, setStatus);

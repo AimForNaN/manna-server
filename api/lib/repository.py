@@ -21,6 +21,7 @@ class Repository():
             mod = Module(mod);
             modules.append(mod);
 
+        modules.sort(key=lambda mod: mod.getName());
         return modules;
 
     def getModulesMapped(self):

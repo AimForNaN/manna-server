@@ -44,10 +44,10 @@ async def get_Install(response: Response, repo: str, src: str = None):
         else:
             if src is not None:
                 source = findInstallSource(sources, src);
-                ret = dict(InstallRemoteSource(source));
+                ret = dict(InstallRemoteSource(source, repo));
             else:
                 for caption,source in sources:
-                    source = InstallRemoteSource(source);
+                    source = InstallRemoteSource(source, repo);
                     ret.append(dict(source));
 
     return ret;
