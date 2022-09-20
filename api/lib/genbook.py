@@ -17,6 +17,11 @@ class GenBook(Module):
         key.root();
         return self.pullStructure(key);
 
+    def getText(self):
+        return [{
+            'Text': self.renderText(),
+        }];
+
     def pullStructure(self, tk: Sword.TreeKey):
         ret = [];
         if tk.firstChild():
