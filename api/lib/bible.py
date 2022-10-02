@@ -12,9 +12,10 @@ class Bible(Module):
             key.setTestament(x);
             for y in range(1, key.getBookMax()):
                 key.setBook(y);
+                bookName = key.getBookName();
                 ret.append({
-                    'Book': key.getBookName(),
-                    'Chapters': key.getChapterMax(),
+                    'Name': bookName,
+                    'Children': [{ 'Name': ch, 'Key': '{book}.{chapter}'.format(book = bookName, chapter = ch) } for ch in range(1,key.getChapterMax()+1)],
                     'Index': ord(key.getBook()),
                     'Testament': ord(key.getTestament()),
                 });

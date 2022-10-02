@@ -26,7 +26,12 @@ class GenBook(Module):
         ret = [];
         if tk.firstChild():
             while True:
-                ret.append(tk.getText());
+                key = tk.getText();
+                name = str(key).split('/').pop();
+                ret.append({
+                    'Key': key,
+                    'Name': name,
+                });
 
                 if tk.hasChildren():
                     ret = ret + self.pullStructure(tk);
