@@ -22,7 +22,7 @@ class GenBook(Module):
             'Text': self.renderText(),
         }];
 
-    def pullStructure(self, tk: Sword.TreeKey):
+    def pullStructure(self, tk: Sword.TreeKey, parent: str = None):
         ret = [];
         if tk.firstChild():
             while True:
@@ -31,10 +31,11 @@ class GenBook(Module):
                 ret.append({
                     'Key': key,
                     'Name': name,
+                    'Parent': parent,
                 });
 
                 if tk.hasChildren():
-                    ret = ret + self.pullStructure(tk);
+                    ret = ret + self.pullStructure(tk, key);
                 
                 if not tk.nextSibling():
                     break;
