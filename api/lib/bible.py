@@ -18,6 +18,7 @@ class Bible(Module):
                     'Children': [{ 'Name': ch, 'Key': '{book}.{chapter}'.format(book = bookName, chapter = ch) } for ch in range(1,key.getChapterMax()+1)],
                     'Index': ord(key.getBook()),
                     'Testament': ord(key.getTestament()),
+                    'Type': self.getType(),
                 });
 
         return ret;

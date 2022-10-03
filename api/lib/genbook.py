@@ -32,6 +32,7 @@ class GenBook(Module):
                     'Key': key,
                     'Name': name,
                     'Parent': parent,
+                    'Type': self.getType(),
                 });
 
                 if tk.hasChildren():
