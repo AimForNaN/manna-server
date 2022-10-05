@@ -34,7 +34,7 @@ class Bible(Module):
         ret = [];
         mod = self.swmod;
         key = Sword.VerseKey(mod.getKey());
-        lk = key.parseVerseList(self.key, None, True);
+        lk = key.parseVerseList(self.getKey(), None, True);
 
         for i in range(lk.getCount()):
             el = Sword.VerseKey(lk.getElement(i));
@@ -46,6 +46,20 @@ class Bible(Module):
             ret.append(self.renderText(el));
         
         return ret;
+
+    def increment(self):
+        mod = self.swmod;
+        key = Sword.VerseKey(mod.getKey());
+        lk = key.parseVerseList(self.getKey(), None, True);
+        el = Sword.VerseKey(lk.getElement(0));
+        upper = Sword.VerseKey(el.getUpperBound());
+        upper.increment();
+        
+        if upper.getVerse() == 0:
+            key = '{book} {chapter}'.format(book=str(upper.getBookName()), chapter=str(upper.getChapter()));
+            self.setKey(key);
+        else:
+            self.setKey(upper.getText());
 
     def renderText(self, key: Sword.VerseKey):
         return {
