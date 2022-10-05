@@ -41,6 +41,12 @@ class Module():
     def getType(self):
         return self.swmod.getType();
 
+    def increment(self):
+        key = self.swmod.getKey();
+        key.setText(self.getKey());
+        key.increment();
+        self.setKey(key.getText());
+
     def renderText(self, key: Sword.SWKey = None):
         mod = self.swmod;
 

@@ -5,7 +5,7 @@ from fastapi import FastAPI;
 from fastapi.middleware.cors import CORSMiddleware;
 
 from .config import MannaConfig;
-from .. import index, install, modules, repositories, structure, text;
+from .. import index, install, modules, next, repositories, structure, text;
 
 class Server():
     def __init__(self):
@@ -26,6 +26,7 @@ class Server():
             self.App.include_router(install.router);
 
         self.App.include_router(modules.router);
+        self.App.include_router(next.router);
         self.App.include_router(structure.router);
         self.App.include_router(text.router);
         self.App.include_router(repositories.router);
